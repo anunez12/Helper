@@ -5,7 +5,7 @@
  */
 
 package clases;
-
+import excepciones.*;
 /**
  *
  * @author rmorales1
@@ -15,10 +15,19 @@ public class Cuenta {
     private long numero_identificacion;
     private double saldo_actual;
 
-    public Cuenta(long numero_cuenta, long numero_identificacion, double saldo_actual) {
-        this.numero_cuenta = numero_cuenta;
-        this.numero_identificacion = numero_identificacion;
-        this.saldo_actual = saldo_actual;
+    public Cuenta(long numero_cuenta, long numero_identificacion, double saldo_actual) throws NoNegativoException, NoCeroException {
+        if(numero_cuenta<0){ 
+         throw new NoNegativoException(("El numero de cuenta no debe ser negativo"));
+        } 
+        if(numero_cuenta==0){ 
+         throw new NoCeroException("El numero de cuenta no puede ser cero");
+        } 
+        if(numero_identificacion==0){ 
+          throw new NoCeroException("El numero de identificacion no puede ser cero");
+        } 
+        if(numero_identificacion<0){ 
+          throw new NoNegativoException("El numero de identificacion no puede ser negativo");
+        }
     }
     
     
@@ -32,42 +41,81 @@ public class Cuenta {
         return numero_cuenta;
     }
 
-    public void setNumero_cuenta(long numero_cuenta) {
-        this.numero_cuenta = numero_cuenta;
+    public void setNumero_cuenta(long numero_cuenta) throws NoCeroException, NoNegativoException { 
+       if(numero_cuenta<0){ 
+         throw new NoNegativoException(("El numero de cuenta no debe ser negativo"));
+        } 
+        if(numero_cuenta==0){ 
+         throw new NoCeroException("El numero de cuenta no puede ser cero");
+       
+    } 
+       this.numero_cuenta = numero_cuenta; 
+        
+        
     }
 
     public long getNumero_identificacion() {
         return numero_identificacion;
     }
 
-    public void setNumero_identificacion(long numero_identificacion) {
-        this.numero_identificacion = numero_identificacion;
+    public void setNumero_identificacion(long numero_identificacion) throws NoCeroException, NoNegativoException { 
+          if(numero_identificacion==0){ 
+          throw new NoCeroException("El numero de identificacion no puede ser cero");
+        } 
+        if(numero_identificacion<0){ 
+          throw new NoNegativoException("El numero de identificacion no puede ser negativo");
+        }
+        this.numero_identificacion = numero_identificacion; 
+        
     }
 
     public double getSaldo_actual() {
         return saldo_actual;
     }
 
-    public void setSaldo_actual(double saldo_actual) {
+    public void setSaldo_actual(double saldo_actual) throws NoNegativoException { 
+        if(saldo_actual<0){ 
+          throw  new NoNegativoException("El saldo actual no puede ser negativo");
+        }
         this.saldo_actual = saldo_actual;
     }
    
-    public void actulizarSaldo(double ian){
+    public void actulizarSaldo(double ian) throws NoNegativoException{ 
+        if(ian<0){ 
+         throw  new NoNegativoException("El interes no puede ser negativo");
+        }
         double aux, aux2;
         aux = this.getSaldo_actual()*(ian/365);
         aux2 = this.getSaldo_actual() + aux;
         this.setSaldo_actual(aux2);
     }
     
-   public void ingresar(double ingreso){
+   public void ingresar(double ingreso) throws NoNegativoException, NoCeroException{ 
+       if(ingreso<0){ 
+        throw new NoNegativoException("El ingreso no puede ser negativo");
+       } 
+       if(ingreso==0){ 
+        throw new NoCeroException("El ingreso no puede ser cero");
+       }
        double aux;
        aux=this.getSaldo_actual()+ingreso;
        this.setSaldo_actual(aux);
    }
    
-   public void retirar(double egreso){
+   public void retirar(double egreso) throws NoNegativoException, NoCeroException, NoFondosException{ 
        double aux;
-       aux = this.getSaldo_actual() - egreso;
+       if(egreso<0){ 
+        throw new NoNegativoException("El retiro no puede ser negativo");
+       } 
+       if(egreso==0){ 
+        throw new NoCeroException("El retiro no puede ser cero");
+       }
+       aux=this.getSaldo_actual()-egreso;
+       
+       
+       if(aux<0){ 
+        throw  new NoFondosException();
+       } 
        this.setSaldo_actual(aux);
        
    }
