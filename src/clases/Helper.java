@@ -6,7 +6,9 @@
 
 package clases;
 
+import java.awt.Button;
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,6 +29,13 @@ public class Helper {
         break;
     }
     
+   } 
+   public static void setBotones(ArrayList<Button>botones,ArrayList<Boolean>estado){ 
+       for (int i = 0; i < botones.size(); i++) { 
+          
+          
+           
+       }
    }
     
 }

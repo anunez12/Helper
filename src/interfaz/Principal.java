@@ -11,8 +11,11 @@ import clases.Helper;
 import excepciones.NoCeroException;
 import excepciones.NoFondosException;
 import excepciones.NoNegativoException;
+import java.awt.Button;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,9 +27,18 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    Cuenta c;
+    Cuenta c; 
+    ArrayList<JButton>botones; 
+    ArrayList<Boolean>estados;
+
     public Principal() {
-        initComponents();
+        initComponents();  
+        botones.add(cmdCrearCuenta); 
+        botones.add(cmdIngresar); 
+        botones.add(cmdRetirar); 
+        botones.add(cmdActualizarSaldo); 
+        botones.add(cmdMostrar);    
+        
     }
 
     /**
